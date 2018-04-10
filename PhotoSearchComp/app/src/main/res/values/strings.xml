@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">PhotoSearch</string>
+    <string name="sign_in">Sign in</string>
+    <string name="sign_up">Sign up</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="add_friend">Add a friend</string>
+    <string name="cancel">Cancel</string>
+    <string name="OK">OK</string>
+    <string name="default_message">No messages yet</string>
+    <string name="text_to_send">enter message</string>
+    <string name="send">Send</string>
+</resources>
