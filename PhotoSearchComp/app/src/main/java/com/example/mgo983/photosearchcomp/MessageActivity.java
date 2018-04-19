@@ -59,7 +59,7 @@ public class MessageActivity extends Activity {
                 String message = editText.getText().toString();
                 Calendar calendar = Calendar.getInstance();
                 String date = calendar.getTime().toString();
-                Message wholeMessage = new Message(friendId, senderId, recepientId,message, date);
+                Message wholeMessage = new Message(senderId, recepientId,message, date);
                 databaseReference.child(friendId).push().setValue(wholeMessage);
                 editText.setText(CLEAR_TEXT);
             }

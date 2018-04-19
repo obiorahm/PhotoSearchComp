@@ -72,7 +72,7 @@ public class MainActivity extends Activity {
                 String username = currFriend.getUsername();
                 if (hashFriends.get(username) == null)
                     friends.add(currFriend);
-                Log.d("friend id", dataSnapshot.getKey());
+                Log.d("friend id", dataSnapshot.getValue().toString());
 
 
                /* for (DataSnapshot child : dataSnapshot.getChildren()){

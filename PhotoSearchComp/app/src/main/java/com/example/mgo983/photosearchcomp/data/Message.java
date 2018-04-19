@@ -11,8 +11,8 @@ public class Message {
     private String mssg;
     private String date;
 
-    public Message(String mId, String mSenderId, String mRecipientId, String mMssg, String mDate){
-        id = mId;
+    public Message(String mSenderId, String mRecipientId, String mMssg, String mDate){
+        //id = mId;
         sender_id = mSenderId;
         recipient_id = mRecipientId;
         mssg = mMssg;

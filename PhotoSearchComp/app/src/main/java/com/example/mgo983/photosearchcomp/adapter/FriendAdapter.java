@@ -16,6 +16,14 @@ import com.example.mgo983.photosearchcomp.MessageActivity;
 import com.example.mgo983.photosearchcomp.R;
 import com.example.mgo983.photosearchcomp.data.Constants;
 import com.example.mgo983.photosearchcomp.data.Friends;
+import com.example.mgo983.photosearchcomp.data.Message;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -71,9 +79,10 @@ public class FriendAdapter extends ArrayAdapter{
         FriendViewHolder friendViewHolder = new FriendViewHolder(view);
         final Friends currFriend = friendsArrayList.get(position);
         final String friendName = currFriend.getUsername();
+        setLastMessage(currFriend, friendViewHolder);
         Log.d("Friendship id ", currFriend.getId());
         String capFriendName = friendName.substring(0,1).toUpperCase() + friendName.substring(1);
-        friendViewHolder.nameTextView.setText(friendsArrayList.get(position).getUsername());
+        friendViewHolder.nameTextView.setText(capFriendName);
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +104,26 @@ public class FriendAdapter extends ArrayAdapter{
 
         view.setTag(friendViewHolder);
         return view;
+    }
+
+    public void setLastMessage(Friends friends, final FriendViewHolder friendViewHolder){
+        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Constants.PS_MESSAGE + "/" + friends.getId()).limitToLast(1).getRef();
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                    for(DataSnapshot child : dataSnapshot.getChildren()){
+                        Message message = child.getValue(Message.class);
+                        friendViewHolder.lastMessageTextView.setText(message.getMssg());
+                        Log.d("last message ", child.getValue().toString());
+
+                    }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 }
